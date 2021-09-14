@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Resumo final</string>
+    <string name="go_to_details">Go to details</string>
+    <string name="close">Close</string>
 </resources>

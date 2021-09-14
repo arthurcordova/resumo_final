@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/app_navigation">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_navigation"
+    app:startDestination="@id/feedFragment">
 
+    <fragment
+        android:id="@+id/feedFragment"
+        android:name="com.arcanesecurity.resumofinal.view.FeedFragment"
+        android:label="feed_fragment"
+        tools:layout="@layout/feed_fragment">
+        <action
+            android:id="@+id/action_feedFragment_to_feedDetailFragment"
+            app:destination="@id/feedDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/feedDetailFragment"
+        android:name="com.arcanesecurity.resumofinal.view.FeedDetailFragment"
+        android:label="feed_detail_fragment"
+        tools:layout="@layout/feed_detail_fragment">
+        <action
+            android:id="@+id/action_feedDetailFragment_to_accountFragment"
+            app:destination="@id/accountFragment"
+            app:popUpTo="@id/feedDetailFragment"
+            app:popUpToInclusive="true"/>
+
+    </fragment>
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.arcanesecurity.resumofinal.view.AccountFragment"
+        android:label="account_fragment"
+        tools:layout="@layout/account_fragment" />
+    Ò
 </navigation>
