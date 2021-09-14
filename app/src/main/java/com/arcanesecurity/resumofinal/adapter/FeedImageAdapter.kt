@@ -30,7 +30,7 @@ class FeedImageAdapter : ListAdapter<Image, FeedImageViewHolder>(ImageDiffUtilIt
             listOf.clear()
         }
         listOf.addAll(newList)
-        submitList(listOf)
+        submitList(listOf.toMutableList())
     }
 
 }
@@ -42,7 +42,7 @@ class FeedImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(image: Image) {
         Glide.with(itemView)
             .load(image.largeImageURL)
-            .centerCrop()
+//            .centerCrop()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
 //            .listener(object : RequestListener<Drawable> {
 //                override fun onLoadFailed(
