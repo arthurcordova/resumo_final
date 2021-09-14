@@ -10,12 +10,10 @@ import androidx.navigation.fragment.findNavController
 import com.arcanesecurity.resumofinal.R
 import com.arcanesecurity.resumofinal.databinding.FeedFragmentBinding
 import com.arcanesecurity.resumofinal.view_model.FeedViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FeedFragment : Fragment(R.layout.feed_fragment) {
-
-    companion object {
-        fun newInstance() = FeedFragment()
-    }
 
     private lateinit var viewModel: FeedViewModel
     private lateinit var binding: FeedFragmentBinding

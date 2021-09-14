@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.arcanesecurity.resumofinal.R
 import com.arcanesecurity.resumofinal.databinding.AccountFragmentBinding
 import com.arcanesecurity.resumofinal.view_model.AccountViewModel

@@ -31,5 +31,5 @@
         android:name="com.arcanesecurity.resumofinal.view.AccountFragment"
         android:label="account_fragment"
         tools:layout="@layout/account_fragment" />
-    Ò
+
 </navigation>
