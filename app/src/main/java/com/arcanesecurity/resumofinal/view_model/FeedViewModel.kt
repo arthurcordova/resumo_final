@@ -23,9 +23,7 @@ class FeedViewModel @Inject constructor(private val repository: PixabayRepositor
 
     fun fetchImages(page: Int = 1) {
         viewModelScope.launch {
-            val returnedImages = repository.fetchImages(q = _query ?: "", page = page) {
-                println("Erro desconhecido")
-            }
+            val returnedImages = repository.fetchImages(q = _query ?: "", page = page)
             returnedImages?.let {
                 _images.value = it
             }

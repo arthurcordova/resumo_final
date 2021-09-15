@@ -15,7 +15,7 @@ class PixabayRepository @Inject constructor(
     private val pixabayDao: PixabayDao
 ) {
 
-    suspend fun fetchImages(q: String, page: Int, onError: (String?) -> Unit): List<Image>? {
+    suspend fun fetchImages(q: String, page: Int): List<Image>? {
         return withContext(Dispatchers.Default) {
             val response = service.fetchImage(q = q, page = page)
             val processedResponse = processData(response)
@@ -34,10 +34,11 @@ class PixabayRepository @Inject constructor(
         }
     }
 
-    suspend fun fetchFromDb(listOf: List<Image>): List<Image> {
+    suspend fun fetchFromDb(): List<Image> {
         return withContext(Dispatchers.Default) {
             pixabayDao.fetch()
         }
     }
+
 
 }
