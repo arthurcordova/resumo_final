@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.arcanesecurity.resumofinal.database.dao.PixabayDao
 import com.arcanesecurity.resumofinal.model.Image
 
 /**
@@ -25,7 +26,7 @@ abstract class AppDatabase : RoomDatabase() {
     /**
      * funcao declarada para o Room implementar automaticamente nosso DAO
      */
-//    abstract fun getPatientDao(): PatientDao
+    abstract fun getPixabayDao(): PixabayDao
 
     companion object {
 

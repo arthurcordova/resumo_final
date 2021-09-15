@@ -1,9 +1,13 @@
 package com.arcanesecurity.resumofinal.di
 
+import android.content.Context
+import com.arcanesecurity.resumofinal.database.AppDatabase
+import com.arcanesecurity.resumofinal.database.dao.PixabayDao
 import com.arcanesecurity.resumofinal.services.PixabayApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -24,5 +28,9 @@ object AppModule {
     fun providePixabayApi(retrofit: Retrofit): PixabayApi =
         retrofit.create(PixabayApi::class.java)
 
+    @Provides
+    fun providePixabayDao(@ApplicationContext context: Context): PixabayDao {
+        return AppDatabase.getDatabase(context).getPixabayDao()
+    }
 
 }

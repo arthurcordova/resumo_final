@@ -1,5 +1,6 @@
 package com.arcanesecurity.resumofinal.repository
 
+import com.arcanesecurity.resumofinal.database.dao.PixabayDao
 import com.arcanesecurity.resumofinal.model.Image
 import com.arcanesecurity.resumofinal.services.PixabayApi
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -9,17 +10,13 @@ import retrofit2.Response
 import javax.inject.Inject
 
 
-class PixabayRepository @Inject constructor(private val service: PixabayApi) {
-
-    lateinit var onError: (String?) -> Unit
-
-    val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        onError(throwable.message)
-    }
+class PixabayRepository @Inject constructor(
+    private val service: PixabayApi,
+    private val pixabayDao: PixabayDao
+) {
 
     suspend fun fetchImages(q: String, page: Int, onError: (String?) -> Unit): List<Image>? {
-        this.onError = onError
-        return withContext(Dispatchers.Default + exceptionHandler) {
+        return withContext(Dispatchers.Default) {
             val response = service.fetchImage(q = q, page = page)
             val processedResponse = processData(response)
             processedResponse?.hits
@@ -28,6 +25,19 @@ class PixabayRepository @Inject constructor(private val service: PixabayApi) {
 
     private fun <T> processData(response: Response<T>): T? {
         return if (response.isSuccessful) response.body() else null
+    }
+
+    suspend fun insert(listOf: List<Image>): Boolean {
+        return withContext(Dispatchers.Default) {
+            pixabayDao.insert(listOf)
+            true
+        }
+    }
+
+    suspend fun fetchFromDb(listOf: List<Image>): List<Image> {
+        return withContext(Dispatchers.Default) {
+            pixabayDao.fetch()
+        }
     }
 
 }
