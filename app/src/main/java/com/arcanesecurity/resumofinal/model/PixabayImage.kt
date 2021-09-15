@@ -1,5 +1,7 @@
 package com.arcanesecurity.resumofinal.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 data class PixabayImage(
@@ -9,7 +11,9 @@ data class PixabayImage(
     val hits : List<Image>
 )
 
+@Entity
 data class Image(
+    @PrimaryKey
     val id: Int,
     val tags: String,
     val likes: Int,

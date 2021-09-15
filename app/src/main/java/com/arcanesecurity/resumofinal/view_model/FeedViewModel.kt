@@ -19,9 +19,11 @@ class FeedViewModel @Inject constructor(private val repository: PixabayRepositor
     private val _page = MutableLiveData<Int>()
     val page: LiveData<Int> = _page
 
-    fun fetchImages(q: String = "", page: Int = 1) {
+    private var _query : String? = null
+
+    fun fetchImages(page: Int = 1) {
         viewModelScope.launch {
-            val returnedImages = repository.fetchImages(q = q, page = page) {
+            val returnedImages = repository.fetchImages(q = _query ?: "", page = page) {
                 println("Erro desconhecido")
             }
             returnedImages?.let {
@@ -32,6 +34,11 @@ class FeedViewModel @Inject constructor(private val repository: PixabayRepositor
 
     fun nextPage() {
         _page.value = (_page.value ?: 0) + 1
+    }
+
+    fun searchFor(q : String) {
+        _query = q
+        _page.value = 1
     }
 
 
