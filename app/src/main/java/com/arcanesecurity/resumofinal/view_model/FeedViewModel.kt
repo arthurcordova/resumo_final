@@ -20,12 +20,20 @@ class FeedViewModel @Inject constructor(private val repository: PixabayRepositor
     val page: LiveData<Int> = _page
 
     private var _query : String? = null
+    private var onlyFirstTime = true
 
     fun fetchImages(page: Int = 1) {
         viewModelScope.launch {
-            val returnedImages = repository.fetchImages(q = _query ?: "", page = page)
-            returnedImages?.let {
-                _images.value = it
+
+            val listFromDb = repository.fetchFromDb()
+            if (listFromDb.isNotEmpty() && onlyFirstTime){
+                _images.value = listFromDb
+                onlyFirstTime = false
+            } else {
+                val returnedImages = repository.fetchImages(q = _query ?: "", page = page)
+                returnedImages?.let {
+                    _images.value = it
+                }
             }
         }
     }

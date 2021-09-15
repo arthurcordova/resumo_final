@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         navController = findNavController(R.id.navHost)
-        appBarConfiguration = AppBarConfiguration.Builder(navController.graph).build()
+        appBarConfiguration = AppBarConfiguration.Builder(R.id.splashFragment, R.id.feedFragment).build()
         setupActionBarWithNavController(navController, appBarConfiguration)
 
     }

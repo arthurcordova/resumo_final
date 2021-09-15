@@ -21,6 +21,7 @@ data class Image(
     val largeImageURL: String?,
     val fullHDURL: String?,
     val imageURL: String?,
+    val webformatURL: String?,
     val user: String,
     val userImageURL: String,
 )

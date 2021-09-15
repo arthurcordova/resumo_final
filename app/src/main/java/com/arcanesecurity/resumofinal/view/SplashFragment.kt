@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.arcanesecurity.resumofinal.R
@@ -27,6 +28,8 @@ class SplashFragment : Fragment(R.layout.splash_fragment) {
         super.onViewCreated(view, savedInstanceState)
         binding = SplashFragmentBinding.bind(view)
         viewModel = ViewModelProvider(this).get(SplashViewModel::class.java)
+
+        (requireActivity() as? AppCompatActivity)?.supportActionBar?.hide()
 
         viewModel.isLoading.observe(viewLifecycleOwner, observerLoadingData)
         viewModel.loadData()

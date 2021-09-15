@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.SearchEvent
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
@@ -42,6 +43,8 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         binding = FeedFragmentBinding.bind(view)
         viewModel = ViewModelProvider(this).get(FeedViewModel::class.java)
 
+        (requireActivity() as? AppCompatActivity)?.supportActionBar?.show()
+
         viewModel.images.observe(viewLifecycleOwner, observerImages)
         viewModel.page.observe(viewLifecycleOwner, observerPages)
 
@@ -55,10 +58,10 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
 
     fun setupRecyclerView() = with(binding.feedRecyclerView) {
         adapter = ConcatAdapter(searchAdapter, feedAdapter)
-        layoutManager = GridLayoutManager(requireContext(), 2).apply {
+        layoutManager = GridLayoutManager(requireContext(), 4).apply {
             spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
-                    return if (position == 0) 2 else 1
+                    return if (position == 0) 4 else 1
                 }
 
             }
