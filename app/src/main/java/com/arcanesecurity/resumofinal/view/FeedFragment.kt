@@ -25,7 +25,11 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
 
     private lateinit var viewModel: FeedViewModel
     private lateinit var binding: FeedFragmentBinding
-    private val feedAdapter = FeedImageAdapter()
+    private val feedAdapter = FeedImageAdapter() {
+        FeedFragmentDirections.actionFeedFragmentToFeedDetailFragment(it).apply {
+            findNavController().navigate(this)
+        }
+    }
     var clearList = false
     private val searchAdapter = HeaderAdapter() {
         clearList = true
@@ -47,8 +51,6 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
 
         viewModel.images.observe(viewLifecycleOwner, observerImages)
         viewModel.page.observe(viewLifecycleOwner, observerPages)
-
-        setupRecyclerView()
 
         binding.buttonNextPage.setOnClickListener {
             clearList = false

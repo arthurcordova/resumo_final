@@ -11,7 +11,8 @@ import com.arcanesecurity.resumofinal.model.Image
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
-class FeedImageAdapter : ListAdapter<Image, FeedImageViewHolder>(ImageDiffUtilItemCallback()) {
+class FeedImageAdapter(val onTap: (Image) -> Unit) :
+    ListAdapter<Image, FeedImageViewHolder>(ImageDiffUtilItemCallback()) {
 
     var listOf = mutableListOf<Image>()
 
@@ -22,7 +23,10 @@ class FeedImageAdapter : ListAdapter<Image, FeedImageViewHolder>(ImageDiffUtilIt
     }
 
     override fun onBindViewHolder(holder: FeedImageViewHolder, position: Int) {
-        getItem(position).let { image -> holder.bind(image) }
+        getItem(position).let { image ->
+            holder.bind(image)
+            holder.itemView.setOnClickListener { onTap(image) }
+        }
     }
 
     fun update(newList: List<Image>, clear: Boolean = false) {

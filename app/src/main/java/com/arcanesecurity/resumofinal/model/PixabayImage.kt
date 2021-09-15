@@ -3,6 +3,7 @@ package com.arcanesecurity.resumofinal.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class PixabayImage(
     @SerializedName("total")
@@ -24,4 +25,4 @@ data class Image(
     val webformatURL: String?,
     val user: String,
     val userImageURL: String,
-)
+) : Serializable
