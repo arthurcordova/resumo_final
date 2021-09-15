@@ -35,12 +35,14 @@
         android:id="@+id/splashFragment"
         android:name="com.arcanesecurity.resumofinal.view.SplashFragment"
         android:label="main_fragment"
-        tools:layout="@layout/main_fragment" >
+        tools:layout="@layout/main_fragment">
+
         <action
             android:id="@+id/action_splashFragment_to_feedFragment"
             app:destination="@id/feedFragment"
             app:popUpTo="@id/splashFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true"/>
+
     </fragment>
 
 </navigation>

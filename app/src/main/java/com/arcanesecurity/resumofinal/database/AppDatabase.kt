@@ -18,7 +18,7 @@ import com.arcanesecurity.resumofinal.model.Image
     entities = [
         Image::class
     ],
-    version = 1,
+    version = 2,
 
     )
 abstract class AppDatabase : RoomDatabase() {
