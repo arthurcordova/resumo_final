@@ -17,10 +17,10 @@ class PixabayRepository @Inject constructor(private val service: PixabayApi) {
         onError(throwable.message)
     }
 
-    suspend fun fetchImages(q: String, onError: (String?) -> Unit): List<Image>? {
+    suspend fun fetchImages(q: String, page: Int, onError: (String?) -> Unit): List<Image>? {
         this.onError = onError
         return withContext(Dispatchers.Default + exceptionHandler) {
-            val response = service.fetchImage(q = q)
+            val response = service.fetchImage(q = q, page = page)
             val processedResponse = processData(response)
             processedResponse?.hits
         }

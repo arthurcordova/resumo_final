@@ -26,6 +26,8 @@ class FeedDetailFragment : Fragment(R.layout.feed_detail_fragment) {
                 navigate(R.id.action_feedDetailFragment_to_accountFragment)
             }
         }
+
+
     }
 
 }

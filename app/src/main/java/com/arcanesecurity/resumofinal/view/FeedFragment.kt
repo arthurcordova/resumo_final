@@ -7,6 +7,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.arcanesecurity.resumofinal.R
 import com.arcanesecurity.resumofinal.adapter.FeedImageAdapter
@@ -24,6 +25,9 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
     private val observerImages = Observer<List<Image>> {
         feedAdapter.update(it)
     }
+    private val observerPages = Observer<Int> {
+        viewModel.fetchImages(page = it)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,14 +35,19 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         viewModel = ViewModelProvider(this).get(FeedViewModel::class.java)
 
         viewModel.images.observe(viewLifecycleOwner, observerImages)
+        viewModel.page.observe(viewLifecycleOwner, observerPages)
 
         setupRecyclerView()
+
+        binding.buttonNextPage.setOnClickListener {
+            viewModel.nextPage()
+        }
     }
 
     fun setupRecyclerView() = with(binding.feedRecyclerView) {
         adapter = feedAdapter
-        layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        viewModel.fetchImages()
+        layoutManager = GridLayoutManager(requireContext(), 2)
+        viewModel.nextPage()
     }
 
 }
