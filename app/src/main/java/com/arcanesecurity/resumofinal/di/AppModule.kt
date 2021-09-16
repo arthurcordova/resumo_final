@@ -3,6 +3,7 @@ package com.arcanesecurity.resumofinal.di
 import android.content.Context
 import com.arcanesecurity.resumofinal.database.AppDatabase
 import com.arcanesecurity.resumofinal.database.dao.PixabayDao
+import com.arcanesecurity.resumofinal.services.NotificationHandler
 import com.arcanesecurity.resumofinal.services.PixabayApi
 import dagger.Module
 import dagger.Provides
@@ -32,5 +33,8 @@ object AppModule {
     fun providePixabayDao(@ApplicationContext context: Context): PixabayDao {
         return AppDatabase.getDatabase(context).getPixabayDao()
     }
+
+    @Provides
+    fun provideNotificationHandler(@ApplicationContext context: Context) : NotificationHandler = NotificationHandler(context)
 
 }

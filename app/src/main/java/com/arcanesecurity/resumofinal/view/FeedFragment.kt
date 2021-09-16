@@ -2,26 +2,29 @@ package com.arcanesecurity.resumofinal.view
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.view.SearchEvent
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.arcanesecurity.resumofinal.R
 import com.arcanesecurity.resumofinal.adapter.FeedImageAdapter
 import com.arcanesecurity.resumofinal.adapter.HeaderAdapter
 import com.arcanesecurity.resumofinal.databinding.FeedFragmentBinding
 import com.arcanesecurity.resumofinal.model.Image
+import com.arcanesecurity.resumofinal.services.NotificationHandler
 import com.arcanesecurity.resumofinal.view_model.FeedViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class FeedFragment : Fragment(R.layout.feed_fragment) {
+
+    @Inject
+    lateinit var notificationHandler: NotificationHandler
 
     private lateinit var viewModel: FeedViewModel
     private lateinit var binding: FeedFragmentBinding
@@ -56,6 +59,12 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
             clearList = false
             viewModel.nextPage()
         }
+
+        binding.buttonShowNotification.setOnClickListener {
+            showNotification()
+        }
+
+        setupRecyclerView()
     }
 
     fun setupRecyclerView() = with(binding.feedRecyclerView) {
@@ -65,10 +74,17 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
                 override fun getSpanSize(position: Int): Int {
                     return if (position == 0) 4 else 1
                 }
-
             }
         }
         viewModel.nextPage()
     }
+
+    fun showNotification() {
+        notificationHandler.createNotification("Notificação", "Quero comprar um camelo").run {
+            val notificationManager = NotificationManagerCompat.from(requireContext())
+            notificationManager.notify(1, this)
+        }
+    }
+
 
 }
