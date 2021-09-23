@@ -1,6 +1,7 @@
 package com.arcanesecurity.resumofinal.di
 
 import android.content.Context
+import androidx.core.app.NotificationManagerCompat
 import com.arcanesecurity.resumofinal.database.AppDatabase
 import com.arcanesecurity.resumofinal.database.dao.PixabayDao
 import com.arcanesecurity.resumofinal.services.NotificationHandler
@@ -35,6 +36,11 @@ object AppModule {
     }
 
     @Provides
-    fun provideNotificationHandler(@ApplicationContext context: Context) : NotificationHandler = NotificationHandler(context)
+    fun provideNotificationHandler(@ApplicationContext context: Context): NotificationHandler =
+        NotificationHandler(context)
+
+    @Provides
+    fun provideNotificationManagerCompat(@ApplicationContext context: Context): NotificationManagerCompat =
+        NotificationManagerCompat.from(context)
 
 }

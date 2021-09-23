@@ -15,7 +15,7 @@ class PixabayRepository @Inject constructor(
     private val pixabayDao: PixabayDao
 ) {
 
-    suspend fun fetchImages(q: String, page: Int): List<Image>? {
+    suspend fun fetchImages(q: String, page: Int = 1): List<Image>? {
         return withContext(Dispatchers.Default) {
             val response = service.fetchImage(q = q, page = page)
             val processedResponse = processData(response)

@@ -1,11 +1,14 @@
 package com.arcanesecurity.resumofinal.view_model
 
+import android.app.job.JobInfo
+import android.content.ComponentName
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.arcanesecurity.resumofinal.model.Image
 import com.arcanesecurity.resumofinal.repository.PixabayRepository
+import com.arcanesecurity.resumofinal.services.AppJobService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -46,6 +49,8 @@ class FeedViewModel @Inject constructor(private val repository: PixabayRepositor
         _query = q
         _page.value = 1
     }
+
+
 
 
 }

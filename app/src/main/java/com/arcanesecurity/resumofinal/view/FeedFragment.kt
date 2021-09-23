@@ -1,5 +1,9 @@
 package com.arcanesecurity.resumofinal.view
 
+import android.app.job.JobInfo
+import android.app.job.JobScheduler
+import android.content.ComponentName
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -15,6 +19,7 @@ import com.arcanesecurity.resumofinal.adapter.FeedImageAdapter
 import com.arcanesecurity.resumofinal.adapter.HeaderAdapter
 import com.arcanesecurity.resumofinal.databinding.FeedFragmentBinding
 import com.arcanesecurity.resumofinal.model.Image
+import com.arcanesecurity.resumofinal.services.AppJobService
 import com.arcanesecurity.resumofinal.services.NotificationHandler
 import com.arcanesecurity.resumofinal.view_model.FeedViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -65,6 +70,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         }
 
         setupRecyclerView()
+        startJob()
     }
 
     fun setupRecyclerView() = with(binding.feedRecyclerView) {
@@ -82,8 +88,18 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
     fun showNotification() {
         notificationHandler.createNotification("Notificação", "Quero comprar um camelo").run {
             val notificationManager = NotificationManagerCompat.from(requireContext())
-            notificationManager.notify(1, this)
+            notificationManager.notify((0..999).random(), this)
         }
+    }
+
+    fun startJob() {
+        val component = ComponentName(requireContext(), AppJobService::class.java)
+        val jobInfo = JobInfo.Builder(1, component)
+            .setPeriodic(5000)
+            .build()
+        val jobScheduler =
+            requireContext().getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+        jobScheduler.schedule(jobInfo)
     }
 
 

@@ -4,8 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
+import androidx.work.impl.WorkDatabaseMigrations.MIGRATION_1_2
 import com.arcanesecurity.resumofinal.database.dao.PixabayDao
 import com.arcanesecurity.resumofinal.model.Image
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 /**
  * Classe abstrata para criar nosso database local
@@ -18,9 +23,8 @@ import com.arcanesecurity.resumofinal.model.Image
     entities = [
         Image::class
     ],
-    version = 4,
-
-    )
+    version = 3
+)
 abstract class AppDatabase : RoomDatabase() {
 
     /**
@@ -39,9 +43,39 @@ abstract class AppDatabase : RoomDatabase() {
                 AppDatabase::class.java,
                 "resumo_final_db"
             )
-                .fallbackToDestructiveMigration()
+                .fallbackToDestructiveMigrationOnDowngrade()
+                .addMigrations(MIGRATION_1_2)
                 .build()
         }
+
+
+        private val MIGRATION_1_2 = object : Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+            }
+        }
+
+        private val MIGRATION_2_3 = object : Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+            }
+        }
+
+        private val MIGRATION_3_4 = object : Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+            }
+        }
+
+
+
+
+//        val MIGRATION_1_2 = object : Migration(1, 2) {
+//        override fun migrate(database: SupportSQLiteDatabase) {
+////            database.execSQL("ALTER TABLE users ADD COLUMN age INTEGER")
+//        }
+//
+//    }
+
     }
+
+//
 
 }
